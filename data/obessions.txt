@@ -1,0 +1,6 @@
+"spanish quotes"|"spanish sayings"
+"urdu poetry"|"shairi ghalib"
+"raspberry pi"
+"software design patterns"
+"linear algebra"
+"pick up lines" | "opening game"

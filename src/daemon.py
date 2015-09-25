@@ -49,15 +49,19 @@ class daemon:
         self._daemonize()
         self.run()
 
-    def _stop(self):
+    def _stop(self, stopAndExit=True):
         # Stop Daemon
         if self._isDaemonRunning():
             pid = self._getdaemonpid()
             os.kill(pid, signal.SIGTERM)
             sys.stdout.write(self.name + ":" + self.DAEMON_STOPPED)
-            sys.exit(0)
+            if stopAndExit:
+                sys.exit(0)
+            else:
+                return
         sys.stdout.write(self.name + ":" + self.DAEMON_NOT_RUNNING)
-        sys.exit(1)
+        if stopAndExit:
+            sys.exit(1)
 
     def _status(self):
         # Daemon Status
@@ -69,7 +73,9 @@ class daemon:
 
     def _restart(self):
         # Restart Daemon
-        self._stop()
+        self._stop(stopAndExit=False)
+        sys.stdout.write("\n")
+        time.sleep(1)
         self._start()
 
     def startDaemon(self):
